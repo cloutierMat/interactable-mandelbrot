@@ -1,9 +1,9 @@
-import colorSet from "./colorSet.js";
+import color from "./colorSet.js"
 
 // Mandelbrot settings
 const MANDELBROT_DEFAULT_SETTINGS = {
 	maxIterations: 100,
-	bounds: 2,
+	bounds: 2.2,
 	centerLocation: [0, 0],
 	zoomFactor: 200,
 };
@@ -27,6 +27,7 @@ function setCenter(point) {
  */
 function setMaxIterations(iterations) {
 	maxIterations = iterations ? iterations : MANDELBROT_DEFAULT_SETTINGS.maxIterations;
+	color.generateColorSet(maxIterations)
 }
 
 /**
@@ -43,7 +44,7 @@ function setBounds(bound) {
  * @param {boolean} [replace=true] - If set to false, the current zoom value will be multiplied by the first argument
  */
 function setZoom(value, replace = true) {
-	zoomFactor = value ? replace ? value : mandelbrotSettings * value : MANDELBROT_DEFAULT_SETTINGS.zoomFactor;
+	zoomFactor = value ? replace ? value : zoomFactor * value : MANDELBROT_DEFAULT_SETTINGS.zoomFactor;
 }
 
 /**
@@ -54,28 +55,38 @@ function setAll() {
 	setCenter();
 	setMaxIterations();
 	setZoom();
+	color.generateColorSet(maxIterations)
 }
 
-function mandelbrotRecursion(z, c) {
+function mandelbrotFormula(z, c) {
+	// Computes Mandelbrot's formula
 	let real = z[0] ** 2 - z[1] ** 2 + c[0];
 	let imaginary = 2 * z[0] * z[1] + c[1];
 	return [real, imaginary];
 }
 
+/**
+ * Computes the values for each pixel on the canvas based on it's current state
+ * @param {number} width - Width of the canvas
+ * @param {number} height - Height of the canvas
+ * @returns {number[]} pixels - Array containing RGBA value for each pixel
+ */
 function computeCanvas(width, height) {
 	let pixels = [];
+	let halfWidth = width / 2;
+	let halfHeight = height / 2;
 	for(let y = 0; y < height; y++) {
+		let yPos = (y - halfHeight) / zoomFactor - centerLocation[1];
 		for(let x = 0; x < width; x++) {
-			let xPos = (x - width  / 2) / zoomFactor + centerLocation[0];
-			let yPos = (y - height / 2) / zoomFactor - centerLocation[0];
+			let xPos =  (x - halfWidth)  / zoomFactor + centerLocation[0];
 			const c = [xPos, yPos];
 			let z = [0, 0];
 			let i = 0;
 			while (Math.abs(z[0]) < bounds && Math.abs(z[1]) < bounds && i < maxIterations) {
-				z = mandelbrotRecursion(z, c);
+				z = mandelbrotFormula(z, c);
 				i++;
 			}
-			pixels.push(...colorSet[i.toString()]);
+			pixels.push(...color.get(i));
 		}
 	}
 	return pixels;
