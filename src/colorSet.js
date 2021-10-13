@@ -1,15 +1,13 @@
-let color1 = [255, 0, 0, 255];
-let color2 = [0, 255, 0, 255];
-let color3 = [0, 0, 255, 255];
-let color4 = [255, 255, 0, 255];
-
+import settings from "./settings.js";
 
 let colorSet;
 
-function	generateColorSet(max) {
-	if (max < 10) {
-		return "You must choose a value higher then 10.";
-	}
+export function	generateColorSet() {
+	let max = settings.getMaxIterations();
+	let color1 = settings.getColor1();
+	let color2 = settings.getColor2();
+	let color3 = settings.getColor3();
+	let color4 = settings.getColor4();
 	let step = Math.ceil(max / 10);
 	let newSet = [];
 	let i = 0

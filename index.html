@@ -5,16 +5,84 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Document</title>
+	<link rel="stylesheet" href="style.css">
 </head>
-<style>
-	html,
-	body {
-		margin: 0;
-		height: 100%;
-	}
-</style>
 <body>
-	<canvas id="canvas"></canvas>
+	<div class="flex-container">
+		<div id="menu">
+			<h1>Mandelbrot</h1>
+			<h2>Take Control</h2>
+			<p id="help-button">Help and keyboard shortcut [h]</p>
+			<div class="flex-container inputs">
+				<p>Center
+					<span>current</span>
+				</p>
+				<input type="number" class="half-size" id="x-input">
+				<input type="number" class="half-size" id="y-input">
+				<button>Move it out</button>
+			</div>
+			<div class="flex-container inputs">
+				<p>Speed
+					<span>current</span>
+				</p>
+				<input type="number" id="speed">
+				<button>Speed it up</button>
+			</div>
+			<div class="flex-container inputs">
+				<p>Max Iterations
+					<span>current</span>
+				</p>
+				<input type="number" id="max-iterations">
+				<button>Max it out</button>
+			</div>
+			<div class="flex-container inputs">
+				<p>Apply Zoom
+					<span>current</span>
+				</p>
+				<input type="number" id="zoom">
+				<button>Zoom it in</button>
+			</div>
+			<div class="flex-container inputs">
+				<p>Bounds
+					<span>current</span>
+				</p>
+				<input type="number" id="bounds">
+				<button>&#191;Bound it out?</button>
+			</div>
+			<div class="flex-container inputs">
+				<p>Color 1
+					<span id="color-1-current">current</span>
+				</p>
+				<input type="color" id="color-1">
+				<button>Color it up</button>
+			</div>
+			<div class="flex-container inputs">
+				<p>Color 2
+					<span id="color-2-current">current</span>
+				</p>
+				<input type="color" id="color-2">
+				<button>Color it in</button>
+			</div>
+			<div class="flex-container inputs">
+				<p>Color 3
+					<span id="color-3-current">current</span>
+				</p>
+				<input type="color" id="color-3">
+				<button>Color it out</button>
+			</div>
+			<div class="flex-container inputs">
+				<p>Color 4
+					<span id="color-4-current">current</span>
+				</p>
+				<input type="color" id="color-4">
+				<button>Color it down</button>
+			</div>
+		</div>
+		<div>
+			<canvas id="canvas"></canvas>
+			<p id="error-message"></p>
+		</div>
+	</div>
 	<script type="module" src="./src/script.js"></script>
 </body>
 </html>

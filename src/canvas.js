@@ -1,31 +1,17 @@
-let canvas;
+import settings from "./settings.js"
+
 let context;
-let width;
-let height
 
-function setSize(newWidth, newHeight) {
-	width = newWidth;
-	height = newHeight;
-	canvas.width = width;
-	canvas.height = height;
-}
-
-function getImageData() {
-	return context.getImageData(0, 0, canvas.width, canvas.height);
-}
-
-function getWidth() {
-	return width;
-}
-
-function getHeight() {
-	return height;
+function getImageData(width, height) {
+	return context.getImageData(0, 0, width, height);
 }
 
 function draw(pixels) {
-	context.clearRect(0, 0, canvas.width, canvas.height);
+	let width = settings.getCanvasWidth()
+	let height = settings.getCanvasHeight();
+	context.clearRect(0, 0, width, height);
 	try {
-		const imageData = getImageData();
+		const imageData = getImageData(width, height);
 		pixels.forEach((pixel, index) => {
 			imageData.data[index] = pixel;
 		});
@@ -36,16 +22,11 @@ function draw(pixels) {
 	}
 }
 
-function init(element, width, height) {
-	canvas = element;
+function init(canvas) {
 	context = canvas.getContext('2d');
-	setSize(width, height);
 }
 
 export default {
-	setSize,
 	draw,
 	init,
-	getHeight,
-	getWidth
 };
