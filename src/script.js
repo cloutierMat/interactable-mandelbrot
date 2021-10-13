@@ -1,12 +1,13 @@
-import settings from "./settings.js";
-import { computeCanvas } from "./mandelbrot.js";
-import canvas from "./canvas.js";
-import menu from "./menu.js";
+import settings from "./store/settings.js";
+import { computeCanvas } from "./animation/mandelbrot.js";
+import canvas from "./animation/canvas.js";
+import "./controller/menu.js";
 
 // Canvas setup
 const canvasElement = document.getElementById("canvas");
 settings.init(canvasElement);
 canvas.init(canvasElement)
+settings.setCenterLocation([-1.8101000099, 0.000008760139975]);
 
 
 // Draw a new frame

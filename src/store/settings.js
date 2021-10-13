@@ -1,4 +1,4 @@
-import updater from "./updater.js";
+import register from "./register.js";
 
 // Initiate all default values
 const BOUNDS = 2.2;
@@ -9,7 +9,7 @@ const COLOR_1 = [255, 0, 0, 255];
 const COLOR_2 = [0, 255, 0, 255];
 const COLOR_3 = [0, 0, 255, 255];
 const COLOR_4 = [255, 255, 0, 255];
-const MAX_ITERATIONS = 200;
+const MAX_ITERATIONS = 100;
 const SPEED = 1.1;
 const ZOOM_FACTOR = 125;
 
@@ -36,10 +36,12 @@ function setAnimate(toggle=false) {
 
 function setBounds(bound=null) {
 	bounds = bound ? bound : BOUNDS;
+	register.updateBounds(bounds);
 }
 
 function setCenterLocation(point=null) {
 	centerLocation = point ? point : CENTER_LOCATION;
+	register.udpateCenter(centerLocation);
 }
 
 function setCenterFromCanvasCoordinates(x, y) {
@@ -64,31 +66,37 @@ function setCanvasWidth(width=null) {
 
 function setColor1(rgba=null) {
 	color1 = rgba ? rgba : COLOR_1;
+	register.updateColor1(color1);
 }	
 
 function setColor2(rgba=null) {
 	color2 = rgba ? rgba : COLOR_2;
+	register.updateColor2(color2);
 }	
 
 function setColor3(rgba=null) {
 	color3 = rgba ? rgba : COLOR_3;
+	register.updateColor3(color3);
 }	
 
 function setColor4(rgba=null) {
 	color4 = rgba ? rgba : COLOR_4;
+	register.updateColor4(color4);
 }	
 
 function setMaxIterations(max=null) {
 	maxIterations = max ? max : MAX_ITERATIONS;
-	updater.updateMaxIterations();
+	register.updateMaxIterations(maxIterations);
 }	
 
 function setSpeed(value=null) {
 	speed = value ? value : SPEED;
+	register.updateSpeed(speed);
 }
 
 function setZoomFactor(zoom=null) {
 	zoomFactor = zoom ? zoom : ZOOM_FACTOR;
+	register.updateZoom(zoomFactor);
 }
 
 // Define all getters
@@ -145,9 +153,10 @@ function getZoomFactor() {
 }
 
 function increaseZoomFactor() {
-	zoomFactor *= speed;
-	if(zoomFactor > 100000000 || zoomFactor < 50) {
-		speed *= -1;
+	const newZoom = zoomFactor * speed;
+	setZoomFactor(newZoom)
+	if(zoomFactor > 100000000000000000 || zoomFactor < 50) {
+		setSpeed(1 / speed);
 	}
 }
 
