@@ -76,7 +76,6 @@ export function	generateColorSet() {
 	}
 	newSet[max] = [0, 0, 0, 255];
 	colorSet = newSet
-	return newSet;
 }
 
 function get(i) {

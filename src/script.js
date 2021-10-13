@@ -7,8 +7,6 @@ import "./controller/menu.js";
 const canvasElement = document.getElementById("canvas");
 settings.init(canvasElement);
 canvas.init(canvasElement)
-settings.setCenterLocation([-1.8101000099, 0.000008760139975]);
-
 
 // Draw a new frame
 function draw() {

@@ -8,8 +8,6 @@ function rgbToHex ([r, g, b]) {
 	}).join('')
 }
 
-function rgbToString(){}
-
 function updateBounds(bounds) {
 	menu.boundsCurrent.innerText = bounds;
 	menu.boundsInput.value = bounds;

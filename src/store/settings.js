@@ -4,7 +4,7 @@ import register from "./register.js";
 const BOUNDS = 2.2;
 const CANVAS_HEIGHT = 500;
 const CANVAS_WIDTH = 700;
-const CENTER_LOCATION = [0, 0];
+const CENTER_LOCATION = [-1.8101000099, 0.000008760139975];
 const COLOR_1 = [255, 0, 0, 255];
 const COLOR_2 = [0, 255, 0, 255];
 const COLOR_3 = [0, 0, 255, 255];
