@@ -1,5 +1,5 @@
 import { generateColorSet } from "../animation/colorSet.js";
-import menu from "../controller/menu.js"
+import menu from "../menu.js"
 
 function rgbToHex ([r, g, b]) {
 	return '#' + [r, g, b].map(x => {
@@ -23,24 +23,28 @@ function updateColor1(color) {
 	const hexColor = rgbToHex(color);
 	menu.color1Current.style.backgroundColor = hexColor;
 	menu.color1Input.value = hexColor;
+	generateColorSet();
 }
 
 function updateColor2(color) {
 	const hexColor = rgbToHex(color);
 	menu.color2Current.style.backgroundColor = hexColor;
 	menu.color2Input.value = hexColor;
+	generateColorSet();
 }
 
 function updateColor3(color) {
 	const hexColor = rgbToHex(color);
 	menu.color3Current.style.backgroundColor = hexColor;
 	menu.color3Input.value = hexColor;
+	generateColorSet();
 }
 
 function updateColor4(color) {
 	const hexColor = rgbToHex(color);
 	menu.color4Current.style.backgroundColor = hexColor;
 	menu.color4Input.value = hexColor;
+	generateColorSet();
 }
 
 function updateMaxIterations(max) {
@@ -57,6 +61,10 @@ function updateSpeed(speed) {
 function updateZoom(zoom) {
 	menu.zoomCurrent.innerText = zoom;
 	menu.zoomInput.value = zoom;
+}
+
+function draw() {
+
 }
 
 export default {

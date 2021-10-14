@@ -12,7 +12,7 @@ function mandelbrotFormula(z, c) {
  * Computes the values for each pixel on the canvas based on it's current state
  * @returns {number[]} pixels - Array containing RGBA value for each pixel
  */
-export function computeCanvas() {
+export function computePixels() {
 	// console.time();
 	let pixels = [];
 	let width = settings.getCanvasWidth();

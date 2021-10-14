@@ -29,7 +29,14 @@ const color2Current = document.getElementById("color-2-current");
 const color3Current = document.getElementById("color-3-current");
 const color4Current = document.getElementById("color-4-current");
 
-const errorMessageBox = document.getElementById("message-error");
+const errorMessageBox = document.getElementById("error-message");
+
+function setErrorMessage(str) {
+	errorMessageBox.innerText = str;
+	setTimeout(() => {
+		errorMessageBox.innerText = "";
+	}, 5000);
+}
 
 export default {
 	centerInputX,
@@ -42,15 +49,15 @@ export default {
 	color2Input,
 	color3Input,
 	color4Input,
-	// centerButton,
-	// speedButton,
-	// maxIterationsButton,
-	// zoomButton,
-	// boundsButton,
-	// color1Button,
-	// color2Button,
-	// color3Button,
-	// color4Button,
+	centerButton,
+	speedButton,
+	maxIterationsButton,
+	zoomButton,
+	boundsButton,
+	color1Button,
+	color2Button,
+	color3Button,
+	color4Button,
 	boundsCurrent,
 	centerCurrent,
 	color1Current,
@@ -60,5 +67,5 @@ export default {
 	maxIterationsCurrent,
 	speedCurrent,
 	zoomCurrent,
-	errorMessageBox,
+	setErrorMessage,
 }

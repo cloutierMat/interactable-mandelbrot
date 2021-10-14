@@ -1,7 +1,9 @@
 import settings from "./store/settings.js";
-import { computeCanvas } from "./animation/mandelbrot.js";
+import { computePixels } from "./animation/mandelbrot.js";
 import canvas from "./animation/canvas.js";
-import "./controller/menu.js";
+import "./menu.js";
+import "./store/rules.js"
+
 
 // Canvas setup
 const canvasElement = document.getElementById("canvas");
@@ -10,7 +12,7 @@ canvas.init(canvasElement)
 
 // Draw a new frame
 function draw() {
-	const pixels = computeCanvas();
+	const pixels = computePixels();
 	canvas.draw(pixels);
 	if(settings.getAnimate()) {
 		settings.increaseZoomFactor();
@@ -19,17 +21,23 @@ function draw() {
 }
 draw()
 
+export function redraw() {draw()}
+
 //
 // CONTROLLERS
 //
+function toggleAnimation() {
+	settings.setAnimate(!settings.getAnimate());
+	if(settings.getAnimate()) {
+		draw();
+	}	
+}
+
 
 // Keyboard Press
 window.addEventListener("keypress", (e) => {
 	if(e.code === "Space") {
-		settings.setAnimate(!settings.getAnimate());
-		if(settings.getAnimate()) {
-			draw();
-		}
+		toggleAnimation()
 	}
 })
 
@@ -39,4 +47,9 @@ canvasElement.addEventListener("click", (e) => {
 	if(!settings.getAnimate()) {
 		draw();
 	}
+})
+
+// Touch Screen
+canvasElement.addEventListener("touchstart", () => {
+	toggleAnimation()
 })
