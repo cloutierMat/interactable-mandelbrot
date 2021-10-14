@@ -35,9 +35,13 @@ function toggleAnimation() {
 
 
 // Keyboard Press
-window.addEventListener("keypress", (e) => {
+window.addEventListener("keydown", (e) => {
 	if(e.code === "Space") {
 		toggleAnimation()
+	} else if (e.code === "KeyH") {
+		document.getElementById("help-modal").hidden = false;
+	} else if (e.code === "Escape") {
+		document.getElementById("help-modal").hidden = true;
 	}
 })
 
