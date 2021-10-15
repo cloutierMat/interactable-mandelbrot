@@ -1,4 +1,4 @@
-import register from "./register.js";
+import registry from "./registry.js";
 
 // Initiate all default values
 const BOUNDS = 2.2;
@@ -19,14 +19,14 @@ let animate,
 		canvas,
 		canvasHeight,
 		canvasWidth,
-	  centerLocation,
+		centerLocation,
 		color1,
-	  color2,
-	  color3,
-	  color4,
-	  maxIterations,
-	  speed,
-	  zoomFactor
+		color2,
+		color3,
+		color4,
+		maxIterations,
+		speed,
+		zoomFactor
 
 // SETTERS
 
@@ -36,12 +36,14 @@ function setAnimate(toggle=false) {
 
 function setBounds(bound=null) {
 	bounds = bound ? bound : BOUNDS;
-	register.updateBounds(bounds);
+	registry.executeEvent('updateBounds', bounds);
+	registry.executeEvent('forceRedraw');
 }
 
 function setCenterLocation(point=null) {
 	centerLocation = point ? point : CENTER_LOCATION;
-	register.udpateCenter(centerLocation);
+	registry.executeEvent('updateCenter', centerLocation);
+	registry.executeEvent('forceRedraw');
 }
 
 function setCenterFromCanvasCoordinates(x, y) {
@@ -57,49 +59,66 @@ function setCanvas(canvasElement) {
 function setCanvasHeight(height=null) {
 	canvasHeight = height ? height : CANVAS_HEIGHT;
 	canvas.height = canvasHeight;
+	registry.executeEvent('forceRedraw');
 }
 
 function setCanvasWidth(width=null) {
 	canvasWidth = width ? width : CANVAS_WIDTH;
 	canvas.width = canvasWidth;
+	registry.executeEvent('forceRedraw');
 }
 
 function setColor1(rgba=null) {
 	color1 = rgba ? rgba : COLOR_1;
-	register.updateColor1(color1);
+	registry.executeEvent('updateColor1', color1);
+	registry.executeEvent('forceRedraw');
 }	
 
 function setColor2(rgba=null) {
 	color2 = rgba ? rgba : COLOR_2;
-	register.updateColor2(color2);
+	registry.executeEvent('updateColor2', color2);
+	registry.executeEvent('forceRedraw');
 }	
 
 function setColor3(rgba=null) {
 	color3 = rgba ? rgba : COLOR_3;
-	register.updateColor3(color3);
+	registry.executeEvent('updateColor3', color3);
+	registry.executeEvent('forceRedraw');
 }	
 
 function setColor4(rgba=null) {
 	color4 = rgba ? rgba : COLOR_4;
-	register.updateColor4(color4);
+	registry.executeEvent('updateColor4', color4);
+	registry.executeEvent('forceRedraw');
 }	
 
 function setMaxIterations(max=null) {
 	maxIterations = max ? max : MAX_ITERATIONS;
-	register.updateMaxIterations(maxIterations);
+	registry.executeEvent('updateMaxIterations', maxIterations);
+	registry.executeEvent('forceRedraw');
 }	
 
 function setSpeed(value=null) {
 	speed = value ? value : SPEED;
-	register.updateSpeed(speed);
+	registry.executeEvent('updateSpeed', speed);
 }
 
 function setZoomFactor(zoom=null) {
 	zoomFactor = zoom ? zoom : ZOOM_FACTOR;
-	register.updateZoom(zoomFactor);
+	registry.executeEvent('updateZoom', zoomFactor);
+	registry.executeEvent('forceRedraw');
 }
 
-// Define all getters
+function increaseZoomFactor() {
+	const newZoom = zoomFactor * speed;
+	setZoomFactor(newZoom)
+	if(zoomFactor > 100000000000000000 || zoomFactor < 50) {
+		setSpeed(1 / speed);
+	}
+}
+
+// GETTERS
+
 function getAnimate() {
 	return animate;
 }
@@ -150,14 +169,6 @@ function getSpeed() {
 
 function getZoomFactor() {
 	return zoomFactor;
-}
-
-function increaseZoomFactor() {
-	const newZoom = zoomFactor * speed;
-	setZoomFactor(newZoom)
-	if(zoomFactor > 100000000000000000 || zoomFactor < 50) {
-		setSpeed(1 / speed);
-	}
 }
 
 // Initiate all values

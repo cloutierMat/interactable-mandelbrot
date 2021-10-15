@@ -1,5 +1,5 @@
 import settings from "../store/settings.js";
-
+import registry from "../store/registry.js";
 let colorSet;
 
 export function	generateColorSet() {
@@ -82,7 +82,18 @@ function get(i) {
 	return colorSet[i]
 }
 
+// Register to listen to changes in color or max iterations
+registry.addListener(
+	[
+		'updateColor1',
+		'updateColor2',
+		'updateColor3',
+		'updateColor4',
+		'updateMaxIterations'
+	],
+	generateColorSet
+)
+
 export default {
 	get,
-	generateColorSet
 };
