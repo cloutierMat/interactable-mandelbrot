@@ -6,6 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Document</title>
 	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
 	<div class="flex-container">
@@ -16,30 +17,36 @@
 			<div class="flex-container inputs">
 				<p>Center
 				</p>
+				<i class="fas fa-backspace"></i>
 				<input type="number" id="x-input" min="-2" max="2" step="0.000000000000000001">
 				<input type="number" id="y-input" min="-2" max="2" step="0.000000000000000001">
 			</div>
 			<div class="flex-container inputs">
-				<p>Speed
-				</p>
-				<input type="number" id="speed-input" step="0.000000000000000001">
-			</div>
-			<div class="flex-container inputs">
 				<p>Max Iterations
 				</p>
+				<i class="fas fa-backspace"></i>
 				<input type="number" id="max-iterations-input">
-			</div>
-			<div class="flex-container inputs">
-				<p>Apply Zoom
-				</p>
-				<input type="number" id="zoom-input" min="1" max="100000000000000000" step="1">
 			</div>
 			<div class="flex-container inputs">
 				<p>Bounds
 				</p>
+				<i class="fas fa-backspace"></i>
 				<input type="number" id="bounds-input" min="1" max="100000" step="0.1">
 			</div>
+			<div class="flex-container inputs">
+				<p>Speed
+				</p>
+				<i class="fas fa-backspace"></i>
+				<input type="number" id="speed-input" step="0.000000000000000001">
+			</div>
+			<div class="flex-container inputs">
+				<p>Apply Zoom
+				</p>
+				<i class="fas fa-backspace"></i>
+				<input type="number" id="zoom-input" min="1" max="10000000000000000" step="1">
+			</div>
 			<div class="flex-container color inputs">
+				<i class="fas fa-backspace"></i>
 				<input type="color" id="color-1-input">
 				<input type="color" id="color-2-input">
 				<input type="color" id="color-3-input">

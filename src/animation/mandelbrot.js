@@ -1,21 +1,21 @@
 import color from "./colorSet.js"
-import settings from "../store/settings.js";
+import settings from "../store/settings.js"
 
 function iterateEquation(Cr, Ci, bounds, iterations) {
-	let Zr = 0;
-	let Zi = 0;
-	let Tr = 0;
-	let Ti = 0;
-	let i = 0;
-	
-	while(i < iterations && (Tr + Ti) < bounds) {
-		Zi = 2 * Zr * Zi + Ci;
-		Zr = Tr - Ti + Cr;
-		Tr = Zr * Zr;
-		Ti = Zi * Zi;
-		i++;
+	let Zr = 0
+	let Zi = 0
+	let Tr = 0
+	let Ti = 0
+	let i = 0
+
+	while (i < iterations && (Tr + Ti) < bounds) {
+		Zi = 2 * Zr * Zi + Ci
+		Zr = Tr - Ti + Cr
+		Tr = Zr * Zr
+		Ti = Zi * Zi
+		i++
 	}
-	return i;
+	return i
 }
 
 /**
@@ -23,22 +23,23 @@ function iterateEquation(Cr, Ci, bounds, iterations) {
  * @returns {number[]} pixels - Array containing RGBA value for each pixel
  */
 export function computePixels() {
-	// console.time();
-	let pixels = [];
-	let width = settings.getCanvasWidth();
-	let height = settings.getCanvasHeight();
-	let zoomFactor = settings.getZoomFactor();
-	let boundsSquared = settings.getBounds() ** 2;
-	let maxIterations = settings.getMaxIterations();
-	let centerPoint = settings. getCenterLocation();
-	for(let y = 0; y < height; y++) {
-		let yPos = (y - height / 2) / zoomFactor - centerPoint[1];
-		for(let x = 0; x < width; x++) {
-			let xPos =  (x - width / 2)  / zoomFactor + centerPoint[0];
-			let i = iterateEquation(xPos, yPos, boundsSquared, maxIterations);
-			pixels.push(...color.get(i));
+	// console.time()
+	let pixels = []
+	let width = settings.getCanvasWidth()
+	let height = settings.getCanvasHeight()
+	let step = 1 / settings.getZoomFactor()
+	let boundsSquared = settings.getBounds() ** 2
+	let maxIterations = settings.getMaxIterations()
+	let centerPoint = settings.getCenterLocation()
+
+	for (let y = 0; y < height; y++) {
+		let yPos = (y - height / 2) * step - centerPoint[1]
+		for (let x = 0; x < width; x++) {
+			let xPos = (x - width / 2) * step + centerPoint[0]
+			let i = iterateEquation(xPos, yPos, boundsSquared, maxIterations)
+			pixels.push(...color.get(i))
 		}
 	}
-	// console.timeEnd();
-	return pixels;
+	// console.timeEnd()
+	return pixels
 }

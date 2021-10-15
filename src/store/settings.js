@@ -1,7 +1,7 @@
 import registry from "./registry.js";
 
 // Initiate all default values
-const BOUNDS = 2;
+const BOUNDS = 10;
 const CENTER_LOCATION = [-1.8101000099, 0.000008760139975];
 const COLOR_1 = [255, 0, 0, 255];
 const COLOR_2 = [0, 255, 0, 255];
@@ -9,7 +9,7 @@ const COLOR_3 = [0, 0, 255, 255];
 const COLOR_4 = [255, 255, 0, 255];
 const MAX_ITERATIONS = 250;
 const SPEED = 1.1;
-const ZOOM_FACTOR = 125;
+const ZOOM_FACTOR = 120;
 
 // Define all value
 let animate,
@@ -55,8 +55,8 @@ function setCanvas(canvasElement) {
 }
 
 function setCanvasSize() {
-	canvas.width = window.innerWidth;
-	canvas.height = window.innerHeight;
+	canvas.width = window.innerWidth-1;
+	canvas.height = window.innerHeight-4;
 	registry.executeEvent('forceRedraw');
 }
 
@@ -104,7 +104,7 @@ function setZoomFactor(zoom=null) {
 function increaseZoomFactor() {
 	const newZoom = zoomFactor * speed;
 	setZoomFactor(newZoom)
-	if(zoomFactor > 100000000000000000 || zoomFactor < 50) {
+	if(zoomFactor > 10000000000000000 || zoomFactor < 50) {
 		setSpeed(1 / speed);
 	}
 }
