@@ -96,7 +96,7 @@ function setSpeed(value=null) {
 }
 
 function setZoomFactor(zoom=null) {
-	zoomFactor = zoom ? zoom : ZOOM_FACTOR;
+	zoomFactor = zoom ? Math.floor(zoom) : ZOOM_FACTOR;
 	registry.executeEvent('updateZoom', zoomFactor);
 	registry.executeEvent('forceRedraw');
 }
