@@ -18,7 +18,7 @@ export function computePixels() {
 	let width = settings.getCanvasWidth();
 	let height = settings.getCanvasHeight();
 	let zoomFactor = settings.getZoomFactor();
-	let bounds = settings.getBounds();
+	let boundsSquared = settings.getBounds() ** 2;
 	let maxIterations = settings.getMaxIterations();
 	let centerPoint = settings. getCenterLocation();
 	for(let y = 0; y < height; y++) {
@@ -28,7 +28,7 @@ export function computePixels() {
 			const c = [xPos, yPos];
 			let z = [0, 0];
 			let i = 0;
-			while (Math.abs(z[0]) < bounds && Math.abs(z[1]) < bounds && i < maxIterations) {
+			while (z[0] ** 2 + z[1] ** 2 < boundsSquared && i < maxIterations) {
 				z = mandelbrotFormula(z, c);
 				i++;
 			}
