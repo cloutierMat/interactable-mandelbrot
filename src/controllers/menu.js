@@ -1,6 +1,6 @@
-import registry from "./store/registry.js";
-import settings from "./store/settings.js"
-import * as rules from "./store/rules.js";
+import registry from "../store/registry.js";
+import settings from "../store/settings.js"
+import * as rules from "../store/rules.js";
 
 const centerInputX = document.getElementById("x-input");
 const centerInputY = document.getElementById("y-input");

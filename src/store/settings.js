@@ -32,6 +32,7 @@ let animate,
 
 function setAnimate(toggle=false) {
 	animate = toggle;
+	registry.executeEvent('updateAnimate', toggle)
 }
 
 function setBounds(bound=null) {
