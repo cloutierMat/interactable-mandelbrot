@@ -2,8 +2,6 @@ import registry from "./registry.js";
 
 // Initiate all default values
 const BOUNDS = 2.2;
-const CANVAS_HEIGHT = 500;
-const CANVAS_WIDTH = 700;
 const CENTER_LOCATION = [-1.8101000099, 0.000008760139975];
 const COLOR_1 = [255, 0, 0, 255];
 const COLOR_2 = [0, 255, 0, 255];
@@ -17,14 +15,13 @@ const ZOOM_FACTOR = 125;
 let animate,
 		bounds,
 		canvas,
-		canvasHeight,
-		canvasWidth,
 		centerLocation,
 		color1,
 		color2,
 		color3,
 		color4,
 		maxIterations,
+		redrawIsEnabled,
 		speed,
 		zoomFactor
 
@@ -48,8 +45,8 @@ function setCenterLocation(point=null) {
 }
 
 function setCenterFromCanvasCoordinates(x, y) {
-	const newX = (x - canvasWidth / 2) / zoomFactor + centerLocation[0];
-	const newY = (-y + canvasHeight / 2) / zoomFactor + centerLocation[1];
+	const newX = (x - canvas.width / 2) / zoomFactor + centerLocation[0];
+	const newY = (-y + canvas.height / 2) / zoomFactor + centerLocation[1];
 	setCenterLocation([newX, newY]);
 }
 
@@ -57,15 +54,9 @@ function setCanvas(canvasElement) {
 	canvas = canvasElement;
 }
 
-function setCanvasHeight(height=null) {
-	canvasHeight = height ? height : CANVAS_HEIGHT;
-	canvas.height = canvasHeight;
-	registry.executeEvent('forceRedraw');
-}
-
-function setCanvasWidth(width=null) {
-	canvasWidth = width ? width : CANVAS_WIDTH;
-	canvas.width = canvasWidth;
+function setCanvasSize() {
+	canvas.width = window.innerWidth;
+	canvas.height = window.innerHeight;
 	registry.executeEvent('forceRedraw');
 }
 
@@ -118,6 +109,15 @@ function increaseZoomFactor() {
 	}
 }
 
+function preventRedraw() {
+	redrawIsEnabled = false;	
+}
+
+function enableRedraw() {
+	redrawIsEnabled = true;
+	registry.executeEvent('forceRedraw');
+}
+
 // GETTERS
 
 function getAnimate() {
@@ -133,11 +133,11 @@ function getCanvas() {
 }
 
 function getCanvasHeight() {
-	return canvasHeight;
+	return canvas.height;
 }
 
 function getCanvasWidth() {
-	return canvasWidth;
+	return canvas.width;
 }
 
 function getCenterLocation() {
@@ -164,6 +164,10 @@ function getMaxIterations() {
 	return maxIterations;
 }
 
+function getRedrawIsEnabled() {
+	return redrawIsEnabled;
+}
+
 function getSpeed() {
 	return speed;
 }
@@ -174,10 +178,10 @@ function getZoomFactor() {
 
 // Initiate all values
 function setAllValuesToDefault() {
-	setAnimate()
+	preventRedraw();
+	setAnimate();
 	setBounds();
-	setCanvasHeight();
-	setCanvasWidth();
+	setCanvasSize();
 	setCenterLocation();
 	setColor1();
 	setColor2();
@@ -186,6 +190,7 @@ function setAllValuesToDefault() {
 	setMaxIterations();
 	setZoomFactor();
 	setSpeed();
+	enableRedraw();
 }
 
 function init(canvas) {
@@ -199,8 +204,7 @@ export default {
 	setAnimate,
 	setBounds,
 	setCanvas,
-	setCanvasHeight,
-	setCanvasWidth,
+	setCanvasSize,
 	setCenterLocation,
 	setColor1,
 	setColor2,
@@ -220,8 +224,11 @@ export default {
 	getColor2,
 	getColor3,
 	getColor4,
+	getRedrawIsEnabled,
 	getMaxIterations,
 	getSpeed,
 	getZoomFactor,
 	increaseZoomFactor,
+	preventRedraw,
+	enableRedraw
 }

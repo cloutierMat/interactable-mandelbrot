@@ -3,9 +3,7 @@ import { computePixels } from "./animation/mandelbrot.js";
 import canvas from "./animation/canvas.js";
 import registry from "./store/registry.js";
 import "./controllers/menu.js";
-import "./store/rules.js"
 import "./controllers/controller.js"
-
 
 // Canvas setup
 const canvasElement = document.getElementById("canvas");
@@ -25,7 +23,7 @@ draw()
 
 // Register a force redraw event
 registry.addListener('forceRedraw', () => {
-	if(!settings.getAnimate()) {
+	if(!settings.getAnimate() && settings.getRedrawIsEnabled()) {
 		draw()
 	}
 })
