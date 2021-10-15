@@ -1,11 +1,21 @@
 import color from "./colorSet.js"
 import settings from "../store/settings.js";
 
-function mandelbrotFormula(z, c) {
-	// Computes Mandelbrot's formula
-	let real = z[0] ** 2 - z[1] ** 2 + c[0];
-	let imaginary = 2 * z[0] * z[1] + c[1];
-	return [real, imaginary];
+function iterateEquation(Cr, Ci, bounds, iterations) {
+	let Zr = 0;
+	let Zi = 0;
+	let Tr = 0;
+	let Ti = 0;
+	let i = 0;
+	
+	while(i < iterations && (Tr + Ti) < bounds) {
+		Zi = 2 * Zr * Zi + Ci;
+		Zr = Tr - Ti + Cr;
+		Tr = Zr * Zr;
+		Ti = Zi * Zi;
+		i++;
+	}
+	return i;
 }
 
 /**
@@ -25,13 +35,7 @@ export function computePixels() {
 		let yPos = (y - height / 2) / zoomFactor - centerPoint[1];
 		for(let x = 0; x < width; x++) {
 			let xPos =  (x - width / 2)  / zoomFactor + centerPoint[0];
-			const c = [xPos, yPos];
-			let z = [0, 0];
-			let i = 0;
-			while (z[0] ** 2 + z[1] ** 2 < boundsSquared && i < maxIterations) {
-				z = mandelbrotFormula(z, c);
-				i++;
-			}
+			let i = iterateEquation(xPos, yPos, boundsSquared, maxIterations);
 			pixels.push(...color.get(i));
 		}
 	}
