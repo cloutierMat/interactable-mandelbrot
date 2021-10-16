@@ -44,6 +44,31 @@ function hexToRGB(hexColor){
 	]
 }
 
+// Enable / disable color input box
+function enableElement(elem) {
+	elem.disabled = false;
+}
+
+function disableElement(elem) {
+	elem.disabled = true;
+}
+
+function enableAllColorBox() {
+	[
+		color1Input,
+		color2Input,
+		color3Input,
+		color4Input].forEach(e => enableElement(e));
+}
+
+function enableOneColorBox() {
+	enableElement(color1Input);
+	[
+		color2Input,
+		color3Input,
+		color4Input].forEach(e => disableElement(e));
+}
+
 // Register all field to listen to udpdate events
 
 registry.addListener('updateBounds', bounds => {
@@ -94,8 +119,14 @@ registry.addListener('updateZoom', zoom => {
 	zoomInput.value = zoom;
 })
 
-colorSchemeInput.onchange = () => {
-	settings.setColorScheme(colorSchemeInput.value);
+colorSchemeInput.onchange = (e) => {
+	const scheme = e.target.value;
+	settings.setColorScheme(scheme);
+	if(scheme === 'cottonCandy') {
+		enableAllColorBox();
+	} else if(scheme === 'glow') {
+		enableOneColorBox();
+	}
 	colorSchemeInput.blur();
 }
 

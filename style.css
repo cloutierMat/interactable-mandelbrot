@@ -62,7 +62,7 @@ input[type=color] {
 	padding: 0;
 }
 
-input[type=color]:hover,
+input[type=color]:not([disabled]):hover,
 i:hover {
 	cursor: pointer;
 	background-color: #666;
