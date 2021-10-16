@@ -1,5 +1,5 @@
-import settings from "../store/settings.js";
-import registry from "../store/registry.js";
+import settings from "../../store/settings.js";
+import registry from "../../store/registry.js";
 let colorSet;
 
 export function	generateColorSet() {

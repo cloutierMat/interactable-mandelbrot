@@ -1,6 +1,5 @@
-import color from "./colorSet.js";
+import { getColor } from "./colors/index.js";
 import settings from "../store/settings.js";
-import colorGlow from "./colorGlow.js"
 
 function iterateEquation(Cr, Ci, bounds, iterations) {
 	let Zr = 0
@@ -38,7 +37,7 @@ export function computePixels() {
 		for (let x = 0; x < width; x++) {
 			let xPos = (x - width / 2) * step + centerPoint[0]
 			let [i, Tr, Ti] = iterateEquation(xPos, yPos, boundsSquared, maxIterations)
-			pixels.push(...colorGlow.get(i, maxIterations, Tr, Ti))
+			pixels.push(...getColor(i, maxIterations, Tr, Ti));
 		}
 	}
 	// console.timeEnd()

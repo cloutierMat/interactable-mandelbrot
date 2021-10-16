@@ -1,16 +1,17 @@
 import registry from "../store/registry.js";
 import settings from "../store/settings.js"
 
+const boundsInput = document.getElementById("bounds-input");
 const centerInputX = document.getElementById("x-input");
 const centerInputY = document.getElementById("y-input");
-const speedInput = document.getElementById("speed-input");
-const maxIterationsInput = document.getElementById("max-iterations-input");
-const zoomInput = document.getElementById("zoom-input");
-const boundsInput = document.getElementById("bounds-input");
 const color1Input = document.getElementById("color-1-input");
 const color2Input = document.getElementById("color-2-input");
 const color3Input = document.getElementById("color-3-input");
 const color4Input = document.getElementById("color-4-input");
+const colorSchemeInput = document.getElementById("color-scheme-input");
+const maxIterationsInput = document.getElementById("max-iterations-input");
+const speedInput = document.getElementById("speed-input");
+const zoomInput = document.getElementById("zoom-input");
 
 const boundsReset = document.getElementById("bounds-reset");
 const centerReset = document.getElementById("center-reset");
@@ -77,6 +78,10 @@ registry.addListener('updateColor4', color => {
 
 })
 
+registry.addListener('updateColorScheme', scheme => {
+	colorSchemeInput.value = scheme;
+})
+
 registry.addListener('updateMaxIterations', max => {
 	maxIterationsInput.value = max;
 })
@@ -88,6 +93,11 @@ registry.addListener('updateSpeed', speed => {
 registry.addListener('updateZoom', zoom => {
 	zoomInput.value = zoom;
 })
+
+colorSchemeInput.onchange = () => {
+	settings.setColorScheme(colorSchemeInput.value);
+	colorSchemeInput.blur();
+}
 
 boundsReset.onclick = () => {
 	settings.setBounds();

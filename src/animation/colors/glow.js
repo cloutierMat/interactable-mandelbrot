@@ -7,8 +7,9 @@ export default {
 				return [0, 0, 0, 255]
 			}
 			let smoothing = 5 + n - logHalfBase - Math.log(Math.log(Tr+Ti))*logBase;
-			smoothing = Math.floor(240.0*smoothing/max);
-			if ( smoothing > 255 ) smoothing = 255;
-			return [smoothing**2/255, smoothing / 5, smoothing * 2, 255];
+			smoothing = Math.floor(540.0*smoothing/max);
+			return [smoothing, smoothing, smoothing, 255]
+			// if ( smoothing > 255 ) smoothing = 255;
+			// return [smoothing**2/255, smoothing / 5, smoothing * 1.5, 255];
 	}
 }

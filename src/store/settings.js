@@ -7,6 +7,7 @@ const COLOR_1 = [255, 0, 0, 255];
 const COLOR_2 = [0, 255, 0, 255];
 const COLOR_3 = [0, 0, 255, 255];
 const COLOR_4 = [255, 255, 0, 255];
+const COLOR_SCHEME = "cottonCandy"
 const MAX_ITERATIONS = 250;
 const SPEED = 1.1;
 const ZOOM_FACTOR = 120;
@@ -20,6 +21,7 @@ let animate,
 		color2,
 		color3,
 		color4,
+		colorScheme,
 		maxIterations,
 		redrawIsEnabled,
 		speed,
@@ -83,6 +85,12 @@ function setColor4(rgba=null) {
 	registry.executeEvent('updateColor4', color4);
 	registry.executeEvent('forceRedraw');
 }	
+
+function setColorScheme(scheme=null) {
+	colorScheme = scheme ? scheme : COLOR_SCHEME;
+	registry.executeEvent('updateColorScheme', colorScheme)
+	registry.executeEvent('forceRedraw');
+}
 
 function setMaxIterations(max=null) {
 	maxIterations = max ? max : MAX_ITERATIONS;
@@ -187,6 +195,7 @@ function setAllValuesToDefault() {
 	setColor2();
 	setColor3();
 	setColor4();
+	setColorScheme();
 	setMaxIterations();
 	setZoomFactor();
 	setSpeed();
@@ -210,6 +219,7 @@ export default {
 	setColor2,
 	setColor3,
 	setColor4,
+	setColorScheme,
 	setMaxIterations,
 	setSpeed,
 	setZoomFactor,

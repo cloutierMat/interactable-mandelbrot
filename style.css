@@ -37,7 +37,8 @@ body {
 	background-color: none;
 }
 
-.flex-container.inputs input {
+.flex-container.inputs input,
+.flex-container.inputs select {
 	flex: 1 1 60%;
 	max-width: 60%;
 	margin-left: auto;
