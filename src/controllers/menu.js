@@ -12,7 +12,17 @@ const color2Input = document.getElementById("color-2-input");
 const color3Input = document.getElementById("color-3-input");
 const color4Input = document.getElementById("color-4-input");
 
+const boundsReset = document.getElementById("bounds-reset");
+const centerReset = document.getElementById("center-reset");
+const colorReset = document.getElementById("color-reset");
+const maxIterationsReset = document.getElementById("max-iterations-reset");
+const speedReset = document.getElementById("speed-reset");
+const zoomReset = document.getElementById("zoom-reset");
+
+const speedInvert = document.getElementById("speed-invert");
+
 const submitButton = document.getElementById("submit-button");
+const animateButton = document.getElementById("animate-button");
 const resetButton = document.getElementById("reset-button");
 
 // transform the color format
@@ -79,6 +89,37 @@ registry.addListener('updateZoom', zoom => {
 	zoomInput.value = zoom;
 })
 
+boundsReset.onclick = () => {
+	settings.setBounds();
+}
+
+centerReset.onclick = () => {
+	settings.setCenterLocation();
+}
+
+colorReset.onclick = () => {
+	settings.setColor1();
+	settings.setColor2();
+	settings.setColor3();
+	settings.setColor4();
+}
+
+maxIterationsReset.onclick = () => {
+	settings.setMaxIterations();
+}
+
+speedReset.onclick = () => {
+	settings.setSpeed();
+}
+
+zoomReset.onclick = () => {
+	settings.setZoomFactor();
+}
+
+speedInvert.onclick = () => {
+	settings.setSpeed(1 / settings.getSpeed());
+}
+
 submitButton.onclick = (e) => {
 	e.preventDefault();
 	settings.preventRedraw();
@@ -93,6 +134,12 @@ submitButton.onclick = (e) => {
 	settings.setZoomFactor(Number(zoomInput.value));
 	settings.enableRedraw();
 	submitButton.blur();
+}
+
+animateButton.onclick = (e) => {
+	e.preventDefault();
+	settings.setAnimate(!settings.getAnimate());
+	animateButton.blur();
 }
 
 resetButton.onclick = (e) => {

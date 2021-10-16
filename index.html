@@ -17,36 +17,49 @@
 			<div class="flex-container inputs">
 				<p>Center
 				</p>
-				<i class="fas fa-backspace"></i>
+				<div class="icon">
+					<i id="center-reset" class="fas fa-backspace"></i>
+				</div>
 				<input type="number" id="x-input" min="-2" max="2" step="0.000000000000000001">
 				<input type="number" id="y-input" min="-2" max="2" step="0.000000000000000001">
 			</div>
 			<div class="flex-container inputs">
 				<p>Max Iterations
 				</p>
-				<i class="fas fa-backspace"></i>
+				<div class="icon">
+					<i id="max-iterations-reset" class="fas fa-backspace"></i>
+				</div>
 				<input type="number" id="max-iterations-input">
 			</div>
 			<div class="flex-container inputs">
 				<p>Bounds
 				</p>
-				<i class="fas fa-backspace"></i>
+				<div class="icon">
+					<i id="bounds-reset" class="fas fa-backspace"></i>
+				</div>
 				<input type="number" id="bounds-input" min="1" max="100000" step="0.1">
 			</div>
 			<div class="flex-container inputs">
 				<p>Speed
 				</p>
-				<i class="fas fa-backspace"></i>
+				<div class="icon">
+					<i id="speed-invert" class="fas fa-exchange-alt"></i>
+					<i id="speed-reset" class="fas fa-backspace"></i>
+				</div>
 				<input type="number" id="speed-input" step="0.000000000000000001">
 			</div>
 			<div class="flex-container inputs">
 				<p>Apply Zoom
 				</p>
-				<i class="fas fa-backspace"></i>
+				<div class="icon">
+					<i id="zoom-reset" class="fas fa-backspace"></i>
+				</div>
 				<input type="number" id="zoom-input" min="1" max="10000000000000000" step="1">
 			</div>
 			<div class="flex-container color inputs">
-				<i class="fas fa-backspace"></i>
+				<div class="icon">
+					<i id="color-reset" class="fas fa-backspace"></i>
+				</div>
 				<input type="color" id="color-1-input">
 				<input type="color" id="color-2-input">
 				<input type="color" id="color-3-input">
@@ -54,6 +67,7 @@
 			</div>
 			<div class="flex-container margin-top">
 				<input class="button" type="submit" id="submit-button" value="Draw" />
+				<input class="button" type="submit" id="animate-button" value="Animate" />
 				<input class="button" type="reset" id="reset-button" value="Reset" />
 			</div>
 		</form>

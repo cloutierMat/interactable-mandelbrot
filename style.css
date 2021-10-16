@@ -31,8 +31,10 @@ body {
 	margin: 0
 }
 
-.flex-container.inputs p {
-	flex: 0 0 30%;
+.flex-container .icon {
+	flex-grow: 1;
+	text-align: end;
+	background-color: none;
 }
 
 .flex-container.inputs input {
@@ -59,9 +61,14 @@ input[type=color] {
 	padding: 0;
 }
 
-input[type=color]:hover {
+input[type=color]:hover,
+i:hover {
 	cursor: pointer;
 	background-color: #666;
+}
+
+i {
+	margin-right: 0.5em;
 }
 
 #error-message {
