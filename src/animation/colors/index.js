@@ -1,5 +1,5 @@
 import registry from "../../store/registry.js"
-import colorGlow from "./colorGlow.js"
+import colorGlow from "./glow.js"
 import cottonCandy from "./cottonCandy.js"
 
 export let getColor = () => [0, 0, 0, 255]
