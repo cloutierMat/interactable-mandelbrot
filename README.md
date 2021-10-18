@@ -55,14 +55,14 @@ By using the amount of iterations needed to reach the boundary to color the rest
 ## To do
 
 ### Complete the readme
-Optimization
-How to use
+Optimization  
+How to use  
 Describe the different color patterns used
 
 ### Further optimization
-Use of Web Workers to make the rendering multi-threaded
+Use of Web Workers to make the rendering multi-threaded  
 Use of large numbers to allow zooming in a lot more than Javascript precision allows
 
 ### Visual
-Render line by line to allow the user to see the evolution of the calculation
+Render line by line to allow the user to see the evolution of the calculation  
 Switch for the Julia set
