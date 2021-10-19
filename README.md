@@ -4,8 +4,7 @@ Created to be able to quickly see and modify a Mandelbrot visual representation.
 # Go ahead and play with it
 It is fun! Just make sure you don't have anything important to do. As if you are like me, you won't have any rest until you have visited all areas!
 
-## No installation needed
-Just get the files on your computer in a file and open index.html
+Clone and serve it locally or [click here](https://cloutiermat.github.io/interactable-mandelbrot)!
 
 ## Mandelbrot set
 [Wikipedia](https://en.wikipedia.org/wiki/Mandelbrot_set)  
