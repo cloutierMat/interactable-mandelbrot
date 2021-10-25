@@ -1,25 +1,11 @@
-import settings from "../store/settings.js"
-
 let context;
 
-function getImageData(width, height) {
-	return context.getImageData(0, 0, width, height);
+function createImageData(width) {
+	return context.createImageData(width, 1);
 }
 
-function draw(pixels) {
-	let width = settings.getCanvasWidth()
-	let height = settings.getCanvasHeight();
-	context.clearRect(0, 0, width, height);
-	try {
-		const imageData = getImageData(width, height);
-		pixels.forEach((pixel, index) => {
-			imageData.data[index] = pixel;
-		});
-		context.putImageData(imageData, 0, 0);
-	} catch (error) {
-		console.log(error);
-		alert("I am not feeling well!");
-	}
+function putImageData(lineData, yPostion) {
+	context.putImageData(lineData, 0, yPostion)
 }
 
 function init(canvas) {
@@ -27,6 +13,7 @@ function init(canvas) {
 }
 
 export default {
-	draw,
 	init,
+	createImageData,
+	putImageData
 };

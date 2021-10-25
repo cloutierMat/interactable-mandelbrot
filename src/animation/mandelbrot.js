@@ -1,5 +1,6 @@
-import { getColor } from "./colors/index.js";
+import { colorize } from "./colors/index.js";
 import settings from "../store/settings.js";
+import canvas from "./canvas.js"
 
 function iterateEquation(Cr, Ci, bounds, iterations) {
 	let Zr = 0
@@ -18,28 +19,15 @@ function iterateEquation(Cr, Ci, bounds, iterations) {
 	return [i, Tr, Ti];	
 }
 
-/**
- * Computes the values for each pixel on the canvas based on it's current state
- * @returns {number[]} pixels - Array containing RGBA value for each pixel
- */
-export function computePixels() {
-	// console.time()
-	let pixels = []
-	let width = settings.getCanvasWidth()
-	let height = settings.getCanvasHeight()
-	let step = 1 / settings.getZoomFactor()
+export function mandelbrotLine(lineRendered, yPos, xPos, step, width) {
+	let lineData = canvas.createImageData(width);
+	let offset = 0;
 	let boundsSquared = settings.getBounds() ** 2
 	let maxIterations = settings.getMaxIterations()
-	let centerPoint = settings.getCenterLocation()
-
-	for (let y = 0; y < height; y++) {
-		let yPos = (y - height / 2) * step - centerPoint[1]
-		for (let x = 0; x < width; x++) {
-			let xPos = (x - width / 2) * step + centerPoint[0]
-			let [i, Tr, Ti] = iterateEquation(xPos, yPos, boundsSquared, maxIterations)
-			pixels.push(...getColor(i, maxIterations, Tr, Ti));
-		}
+	for (let i = 0; i < width; i++) {
+		let [n, Tr, Ti] = iterateEquation(xPos, yPos, boundsSquared, maxIterations)
+		offset = colorize(lineData, offset, n, maxIterations, Tr, Ti);
+		xPos += step;
 	}
-	// console.timeEnd()
-	return pixels
+	canvas.putImageData(lineData, lineRendered);
 }

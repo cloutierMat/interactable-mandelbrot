@@ -14,13 +14,21 @@ function smoothenColor(smoothing) {
 }
 
 export default {
-	get(n, max, Tr, Ti) {
+	get(lineData, offset, n, max, Tr, Ti) {
 		if(n === max) {
-			return [0, 0, 0, 255]
+			lineData.data[offset++] = 0;
+			lineData.data[offset++] = 0;
+			lineData.data[offset++] = 0;
+			lineData.data[offset++] = 255;
+			return offset;
 		}
 		let smoothing = 5 + n - logHalfBase - Math.log(Math.log(Tr+Ti))*logBase;
 		smoothing = Math.floor(360.0*smoothing/max);
-		// let smoothing = n / max * 255
-		return [...smoothenColor(smoothing), 255];
+		smoothing = smoothenColor(smoothing)
+		lineData.data[offset++] = smoothing[0];
+		lineData.data[offset++] = smoothing[1];
+		lineData.data[offset++] = smoothing[2];
+		lineData.data[offset++] = 255;
+		return offset;
 	}
 }

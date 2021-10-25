@@ -2,12 +2,18 @@ import registry from "../../store/registry.js"
 import colorGlow from "./glow.js"
 import cottonCandy from "./cottonCandy.js"
 
-export let getColor = () => [0, 0, 0, 255]
+export let colorize = (lineData, offset) => {
+	lineData[offset++] = 0;
+	lineData[offset++] = 0;
+	lineData[offset++] = 0;
+	lineData[offset++] = 255;
+	return offset;
+}
 
 registry.addListener('updateColorScheme', scheme => {
 	if(scheme === 'cottonCandy') {
-		getColor = cottonCandy.get;
+		colorize = cottonCandy.get;
 	} else if ( scheme === 'glow') {
-		getColor = colorGlow.get;
+		colorize = colorGlow.get;
 	}
 })

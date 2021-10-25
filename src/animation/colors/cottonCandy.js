@@ -78,8 +78,12 @@ export function	generateColorSet() {
 	colorSet = newSet
 }
 
-function get(i) {
-	return colorSet[i]
+function get(lineData, offset, i) {
+	lineData.data[offset++] = colorSet[i][0];
+	lineData.data[offset++] = colorSet[i][1];
+	lineData.data[offset++] = colorSet[i][2];
+	lineData.data[offset++] = colorSet[i][3];
+	return offset;
 }
 
 // Register to listen to changes in color or max iterations
