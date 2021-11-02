@@ -1,19 +1,19 @@
-import registry from "../../store/registry.js"
 import colorGlow from "./glow.js"
 import cottonCandy from "./cottonCandy.js"
 
-export let colorize = (lineData, offset) => {
-	lineData[offset++] = 0;
-	lineData[offset++] = 0;
-	lineData[offset++] = 0;
-	lineData[offset++] = 255;
-	return offset;
+let get = colorGlow.get;
+
+function set(scheme, color1, color2, color3, color4, max) {
+	if (scheme === "glow") {
+		colorGlow.colorBase = color1;
+		get = colorGlow.get;
+	} else if (scheme === "cottonCandy") {
+		cottonCandy.generateColorSet(max, color1, color2, color3, color4)
+		get = cottonCandy.get
+	}
 }
 
-registry.addListener('updateColorScheme', scheme => {
-	if(scheme === 'cottonCandy') {
-		colorize = cottonCandy.get;
-	} else if ( scheme === 'glow') {
-		colorize = colorGlow.get;
-	}
-})
+export default {
+	get,
+	set
+}

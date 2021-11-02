@@ -1,13 +1,6 @@
-import settings from "../../store/settings.js";
-import registry from "../../store/registry.js";
 let colorSet;
 
-export function	generateColorSet() {
-	let max = settings.getMaxIterations();
-	let color1 = settings.getColor1();
-	let color2 = settings.getColor2();
-	let color3 = settings.getColor3();
-	let color4 = settings.getColor4();
+function	generateColorSet(max, color1, color2, color3, color4) {
 	let step = Math.ceil(max / 10);
 	let newSet = [];
 	let i = 0
@@ -86,18 +79,7 @@ function get(lineData, offset, i) {
 	return offset;
 }
 
-// Register to listen to changes in color or max iterations
-registry.addListener(
-	[
-		'updateColor1',
-		'updateColor2',
-		'updateColor3',
-		'updateColor4',
-		'updateMaxIterations'
-	],
-	generateColorSet
-)
-
 export default {
 	get,
+	generateColorSet
 };

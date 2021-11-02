@@ -15,7 +15,6 @@ const ZOOM_FACTOR = 120;
 // Define all value
 let animate,
 		bounds,
-		canvas,
 		centerLocation,
 		color1,
 		color2,
@@ -50,16 +49,6 @@ function setCenterFromCanvasCoordinates(x, y) {
 	const newX = (x - canvas.width / 2) / zoomFactor + centerLocation[0];
 	const newY = (-y + canvas.height / 2) / zoomFactor + centerLocation[1];
 	setCenterLocation([newX, newY]);
-}
-
-function setCanvas(canvasElement) {
-	canvas = canvasElement;
-}
-
-function setCanvasSize() {
-	canvas.width = window.innerWidth-1;
-	canvas.height = window.innerHeight-4;
-	registry.executeEvent('forceRedraw');
 }
 
 function setColor1(rgba=null) {
@@ -109,11 +98,11 @@ function setZoomFactor(zoom=null) {
 	registry.executeEvent('forceRedraw');
 }
 
-function increaseZoomFactor() {
+function updateZoomFactor() {
 	const newZoom = zoomFactor * speed;
 	setZoomFactor(newZoom)
 	if(zoomFactor > 10000000000000000 || zoomFactor < 50) {
-		setSpeed(1 / speed);
+		setSpeed( 1 / speed );
 	}
 }
 
@@ -134,18 +123,6 @@ function getAnimate() {
 
 function getBounds() {
 	return bounds;
-}
-
-function getCanvas() {
-	return canvas;
-}
-
-function getCanvasHeight() {
-	return canvas.height;
-}
-
-function getCanvasWidth() {
-	return canvas.width;
 }
 
 function getCenterLocation() {
@@ -189,7 +166,6 @@ function setAllValuesToDefault() {
 	preventRedraw();
 	setAnimate();
 	setBounds();
-	setCanvasSize();
 	setCenterLocation();
 	setColor1();
 	setColor2();
@@ -202,8 +178,7 @@ function setAllValuesToDefault() {
 	enableRedraw();
 }
 
-function init(canvas) {
-	setCanvas(canvas)
+function init() {
 	setAllValuesToDefault();
 }
 
@@ -212,8 +187,6 @@ export default {
 	setAllValuesToDefault,
 	setAnimate,
 	setBounds,
-	setCanvas,
-	setCanvasSize,
 	setCenterLocation,
 	setColor1,
 	setColor2,
@@ -225,9 +198,6 @@ export default {
 	setZoomFactor,
 	getAnimate,
 	getBounds,
-	getCanvas,
-	getCanvasHeight,
-	getCanvasWidth,
 	getCenterLocation,
 	setCenterFromCanvasCoordinates,
 	getColor1,
@@ -238,7 +208,7 @@ export default {
 	getMaxIterations,
 	getSpeed,
 	getZoomFactor,
-	increaseZoomFactor,
+	updateZoomFactor,
 	preventRedraw,
 	enableRedraw
 }

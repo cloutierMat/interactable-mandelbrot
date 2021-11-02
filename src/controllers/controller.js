@@ -1,10 +1,5 @@
 import settings from "../store/settings.js"
 
-// window resize 
-window.addEventListener('resize', () => {
-	settings.setCanvasSize();
-})
-
 // Keyboard Press
 window.addEventListener("keydown", (e) => {
 	if(e.code === "Space") {

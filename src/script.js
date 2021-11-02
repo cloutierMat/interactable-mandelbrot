@@ -1,51 +1,67 @@
 import settings from "./store/settings.js";
-import { mandelbrotLine } from "./animation/mandelbrot.js";
 import canvas from "./animation/canvas.js";
 import registry from "./store/registry.js";
 import "./controllers/menu.js";
 import "./controllers/controller.js"
 
 // Canvas setup
-const canvasElement = document.getElementById("canvas");
-settings.init(canvasElement);
-canvas.init(canvasElement)
+settings.init();
 
 let renderCount = 0;
+const workers = [];
+let activeWorkers = new Set();
+let assignLine = () => {};
+if(window.Worker) {
+	for (let i = 0; i < 14; i++) {
+		workers.push(new Worker('src/animation/mandelbrotWorker.js', {type: 'module'}));
+		workers[i].onmessage = (message)=> {
+			canvas.putImageData(message.data[0], message.data[1])
+			assignLine(i)
+		};
+	}
+}
 
 // Draw a new frame
 function draw() {
-	let width = settings.getCanvasWidth();
-	let height = settings.getCanvasHeight();
-	let step = 1 / settings.getZoomFactor();
+	let width = canvas.getWidth();
+	let height = canvas.getHeight();
 	let centerPoint = settings.getCenterLocation();
-	let yPos = (-height / 2) * step - centerPoint[1];
-	let xStart = (-width / 2) * step + centerPoint[0];
-	let yArray = [...Array(height).keys()];
-	yArray.sort(()=>0.5-Math.random());
-	renderCount++;
+	let yArray = [...Array(Math.ceil(height/15)).keys()];
 
-	function drawLine(renderId) {
-		if(renderId !== renderCount) {
-			// only one render at a time
-			return;
-		}
-		let lineRendered = yArray.pop();
-		let yPos = (lineRendered - height / 2) * step - centerPoint[1];
-		mandelbrotLine(lineRendered, yPos, xStart, step, width);
+	
+	renderCount++;
+	
+	assignLine = (worker) => {
 		if(yArray.length > 0) {
-			if(yArray.length%100 !== 0) {
-				drawLine(renderId)
+			let lineRendered = yArray.shift()*15;
+			workers[worker].postMessage(
+				[
+					canvas.createImageData(15),
+					lineRendered,
+					settings.getZoomFactor(),
+					width,
+					height,
+					centerPoint,
+					settings.getBounds(),
+					settings.getMaxIterations(),
+					15
+				]
+				);
 			} else {
-				setTimeout(()=>drawLine(renderId), 0);
-			}
-		} else {
-			if(settings.getAnimate()) {
-				settings.increaseZoomFactor();
-				requestAnimationFrame(draw);
+				activeWorkers.delete(worker);
+				if(activeWorkers.size === 0) {
+					if(settings.getAnimate()) {
+						settings.updateZoomFactor();
+						requestAnimationFrame(draw);
+					}
+				}
 			}
 		}
-	}
-	drawLine(renderCount);
+		
+		for(let i = 0; i < workers.length; i++) {
+			activeWorkers.add(i);
+			assignLine(i);
+		}
 }
 draw()
 

@@ -3,6 +3,21 @@ body {
 	height: 100%;
 	font-family: 'Times New Roman', Times, serif;
 	color: #ddc;
+	background-image: radial-gradient(#088, #000);
+}
+
+.radial {
+	height: 100vh;
+	background-image: radial-gradient(#088, #000);
+}
+
+canvas {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	border-radius: 50%;
+
 }
 
 .flex-container {
@@ -19,6 +34,7 @@ body {
 	padding: 0 1em 1em 2em;
 	flex: 0 0 20%;
 	background-color: #0007;
+	z-index: 1;
 }
 #settings-menu h1 {
 	margin: 0.5em 0;
