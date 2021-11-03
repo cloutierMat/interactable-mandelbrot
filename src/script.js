@@ -6,13 +6,14 @@ import "./controllers/controller.js"
 
 // Canvas setup
 settings.init();
+// Dev commend to always enable max CPU thread.
+// Not to keep for live version as not everybody might like the idea of a web app asking for all of their cpu resources
+// settings.setWorkerCount(navigator.hardwareConcurrency);
 
-let renderCount = 0;
-const workers = [];
-let activeWorkers = new Set();
-let assignLine = () => {};
-if(window.Worker) {
-	for (let i = 0; i < 14; i++) {
+// Create Workers
+function createWorkers(count) {
+	workers = [];
+	for (let i = 0; i < count; i++) {
 		workers.push(new Worker('src/animation/mandelbrotWorker.js', {type: 'module'}));
 		workers[i].onmessage = (message)=> {
 			canvas.putImageData(message.data[0], message.data[1])
@@ -21,13 +22,20 @@ if(window.Worker) {
 	}
 }
 
+let renderCount = 0;
+let workers = [];
+let activeWorkers = new Set();
+let assignLine = () => {};
+if(window.Worker) {
+	createWorkers(settings.getWorkerCount())
+}
+
 // Draw a new frame
 function draw() {
 	let width = canvas.getWidth();
 	let height = canvas.getHeight();
 	let centerPoint = settings.getCenterLocation();
 	let yArray = [...Array(Math.ceil(height/15)).keys()];
-
 	
 	renderCount++;
 	
@@ -46,22 +54,22 @@ function draw() {
 					settings.getMaxIterations(),
 					15
 				]
-				);
-			} else {
-				activeWorkers.delete(worker);
-				if(activeWorkers.size === 0) {
-					if(settings.getAnimate()) {
-						settings.updateZoomFactor();
-						requestAnimationFrame(draw);
-					}
+			);
+		} else {
+			activeWorkers.delete(worker);
+			if(activeWorkers.size === 0) {
+				if(settings.getAnimate()) {
+					settings.updateZoomFactor();
+					requestAnimationFrame(draw);
 				}
 			}
 		}
-		
-		for(let i = 0; i < workers.length; i++) {
-			activeWorkers.add(i);
-			assignLine(i);
-		}
+	}
+	
+	for(let i = 0; i < settings.getWorkerCount(); i++) {
+		activeWorkers.add(i);
+		assignLine(i);
+	}
 }
 draw()
 
@@ -77,4 +85,9 @@ registry.addListener('updateAnimate', (animate) => {
 		if(animate) {
 			draw()
 		}
+})
+
+// Change the amount of webworkers
+registry.addListener('updateWorkerCount', (count) => {
+	createWorkers(count);
 })

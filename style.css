@@ -123,6 +123,13 @@ i {
 	height: 3em;
 }
 
+.info-box {
+	position: absolute;
+	top: 0.5em;
+	right: 0.5em;
+	max-width: 35%;
+}
+
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {

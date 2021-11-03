@@ -11,6 +11,7 @@ const COLOR_4 = [255, 255, 0, 255];
 const COLOR_SCHEME = "cottonCandy"
 const MAX_ITERATIONS = 250;
 const SPEED = 1.1;
+const WORKER_COUNT = 1;
 const ZOOM_FACTOR = 120;
 
 // Define all value
@@ -25,6 +26,7 @@ let animate,
 		maxIterations,
 		redrawIsEnabled,
 		speed,
+		workerCount,
 		zoomFactor
 
 // SETTERS
@@ -93,6 +95,11 @@ function setSpeed(value=null) {
 	registry.executeEvent('updateSpeed', speed);
 }
 
+function setWorkerCount(count=null) {
+	workerCount = count ? count - 1 : WORKER_COUNT;
+	registry.executeEvent('updateWorkerCount', workerCount);
+}
+
 function setZoomFactor(zoom=null) {
 	zoomFactor = zoom ? Math.floor(zoom) : ZOOM_FACTOR;
 	registry.executeEvent('updateZoom', zoomFactor);
@@ -158,6 +165,10 @@ function getSpeed() {
 	return speed;
 }
 
+function getWorkerCount() {
+	return workerCount;
+}
+
 function getZoomFactor() {
 	return zoomFactor;
 }
@@ -180,6 +191,7 @@ function setAllValuesToDefault() {
 }
 
 function init() {
+	setWorkerCount();
 	setAllValuesToDefault();
 }
 
@@ -196,6 +208,7 @@ export default {
 	setColorScheme,
 	setMaxIterations,
 	setSpeed,
+	setWorkerCount,
 	setZoomFactor,
 	getAnimate,
 	getBounds,
@@ -208,6 +221,7 @@ export default {
 	getRedrawIsEnabled,
 	getMaxIterations,
 	getSpeed,
+	getWorkerCount,
 	getZoomFactor,
 	updateZoomFactor,
 	preventRedraw,

@@ -58,6 +58,14 @@
 				<input type="number" id="zoom-input" min="1" max="10000000000000000" step="1">
 			</div>
 			<div class="flex-container inputs">
+				<p>Web Workers
+				</p>
+				<div class="icon">
+					<i id="worker-count-reset" class="fas fa-backspace"></i>
+				</div>
+				<input type="number" id="worker-count-input" min="2" max="16" step="1">
+			</div>
+			<div class="flex-container inputs">
 				<p>Color Scheme
 				</p>
 				<select id="color-scheme-input">
@@ -84,6 +92,9 @@
 			<canvas id="canvas"></canvas>
 			<p id="error-message"></p>
 		</div>
+	</div>
+	<div class="info-box">
+		For a better performance, it is recommended to increases the amount of Web Workers. This will enable the javascript engine to utilize multiple cores on your cpu. Any amount above your actual amount of CPU threads will have no effect.
 	</div>
 	<div hidden id="help-modal">
 		<div>
