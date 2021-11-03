@@ -1,4 +1,5 @@
 import registry from "./registry.js";
+import canvas from "../animation/canvas.js";
 
 // Initiate all default values
 const BOUNDS = 10;
@@ -46,8 +47,8 @@ function setCenterLocation(point=null) {
 }
 
 function setCenterFromCanvasCoordinates(x, y) {
-	const newX = (x - canvas.width / 2) / zoomFactor + centerLocation[0];
-	const newY = (-y + canvas.height / 2) / zoomFactor + centerLocation[1];
+	const newX = x  / zoomFactor + centerLocation[0];
+	const newY = -y / zoomFactor + centerLocation[1];
 	setCenterLocation([newX, newY]);
 }
 
