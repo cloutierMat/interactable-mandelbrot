@@ -7,7 +7,7 @@ const COLOR_1 = [255, 0, 0, 255];
 const COLOR_2 = [0, 255, 0, 255];
 const COLOR_3 = [0, 0, 255, 255];
 const COLOR_4 = [255, 255, 0, 255];
-const COLOR_SCHEME = "cottonCandy"
+const COLOR_SCHEME = "glow"
 const MAX_ITERATIONS = 250;
 const SPEED = 1.1;
 const WORKER_COUNT = 1;
@@ -152,6 +152,10 @@ function getColor4() {
 	return color4;
 }
 
+function getColorScheme() {
+	return colorScheme;
+}
+
 function getMaxIterations() {
 	return maxIterations;
 }
@@ -217,6 +221,7 @@ export default {
 	getColor2,
 	getColor3,
 	getColor4,
+	getColorScheme,
 	getRedrawIsEnabled,
 	getMaxIterations,
 	getSpeed,

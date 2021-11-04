@@ -14,7 +14,7 @@ settings.init();
 
 // Dev command to always enable max CPU thread.
 // Not to keep for live version as not everybody might like the idea of a web app asking for all of their cpu resources
-settings.setWorkerCount(navigator.hardwareConcurrency);
+// settings.setWorkerCount(navigator.hardwareConcurrency);
 
 // 
 // Here we create and delete workers as needed by the application
@@ -57,18 +57,23 @@ function draw() {
 		if(yArray.length > 0) {
 			let lineRendered = yArray.shift()*50;
 			workers[worker].postMessage(
-				[
-					canvas.createImageData(50),
+				{
+					lineData: canvas.createImageData(50),
 					lineRendered,
-					settings.getZoomFactor(),
+					zoomFactor: settings.getZoomFactor(),
 					width,
 					height,
 					centerPoint,
-					settings.getBounds(),
-					settings.getMaxIterations(),
-					50,
-					renderId
-				]
+					bounds: settings.getBounds(),
+					maxIterations: settings.getMaxIterations(),
+					linePerWorker: 50,
+					renderId,
+					colorScheme: settings.getColorScheme(),
+					color1: settings.getColor1(),
+					color2: settings.getColor2(),
+					color3: settings.getColor3(),
+					color4: settings.getColor4(),
+				}
 			);
 		} else {
 			activeWorkers.delete(worker);
