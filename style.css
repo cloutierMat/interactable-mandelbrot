@@ -83,6 +83,10 @@ i:hover {
 	background-color: #666;
 }
 
+input[type=color]:disabled {
+	opacity: 20%;
+}
+
 i {
 	margin-right: 0.5em;
 }

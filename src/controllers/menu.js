@@ -106,6 +106,11 @@ registry.addListener('updateColor4', color => {
 })
 
 registry.addListener('updateColorScheme', scheme => {
+	if(scheme === 'cottonCandy') {
+		enableAllColorBox();
+	} else if(scheme === 'glow') {
+		enableOneColorBox();
+	}
 	colorSchemeInput.value = scheme;
 })
 
@@ -128,11 +133,6 @@ registry.addListener('updateZoom', zoom => {
 colorSchemeInput.onchange = (e) => {
 	const scheme = e.target.value;
 	settings.setColorScheme(scheme);
-	if(scheme === 'cottonCandy') {
-		enableAllColorBox();
-	} else if(scheme === 'glow') {
-		enableOneColorBox();
-	}
 	colorSchemeInput.blur();
 }
 
