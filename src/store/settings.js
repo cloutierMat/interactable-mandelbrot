@@ -1,5 +1,4 @@
 import registry from "./registry.js";
-import canvas from "../animation/canvas.js";
 
 // Initiate all default values
 const BOUNDS = 10;
