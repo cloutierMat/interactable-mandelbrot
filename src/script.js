@@ -45,7 +45,7 @@ function draw() {
 	let width = canvas.getWidth();
 	let height = canvas.getHeight();
 	let centerPoint = settings.getCenterLocation();
-	let yArray = [...Array(Math.ceil(height/2)).keys()];
+	let yArray = [...Array(Math.ceil(height/50)).keys()];
 	
 	renderCount++;
 	assignLine = (worker, renderId) => {
@@ -55,10 +55,10 @@ function draw() {
 			return;
 		}
 		if(yArray.length > 0) {
-			let lineRendered = yArray.shift()*2;
+			let lineRendered = yArray.shift()*50;
 			workers[worker].postMessage(
 				[
-					canvas.createImageData(2),
+					canvas.createImageData(50),
 					lineRendered,
 					settings.getZoomFactor(),
 					width,
@@ -66,7 +66,7 @@ function draw() {
 					centerPoint,
 					settings.getBounds(),
 					settings.getMaxIterations(),
-					2,
+					50,
 					renderId
 				]
 			);
