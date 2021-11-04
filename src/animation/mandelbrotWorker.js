@@ -28,7 +28,8 @@ function mandelbrotLine(args) {
 		centerPoint,
 		bounds,
 		maxIterations,
-		linePerWorker
+		linePerWorker,
+		renderId
 	] = args.data;
 	let offset = 0;
 	let yPos;
@@ -41,7 +42,7 @@ function mandelbrotLine(args) {
 			offset = color.get(lineData, offset, n, maxIterations, Tr, Ti);
 		}
 	}
-	self.postMessage([lineData, lineRendered]);
+	self.postMessage({lineData, yPosition: lineRendered, renderId});
 }
 
 self.onmessage = mandelbrotLine;

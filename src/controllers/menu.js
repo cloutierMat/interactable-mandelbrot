@@ -182,7 +182,6 @@ submitButton.onclick = (e) => {
 	settings.setColor4(hexToRGB(color4Input.value));
 	settings.setMaxIterations(Number(maxIterationsInput.value));
 	settings.setSpeed(Number(speedInput.value));
-	console.log(workerCountInput.value);
 	settings.setWorkerCount(Number(workerCountInput.value));
 	settings.setZoomFactor(Number(zoomInput.value));
 	settings.enableRedraw();

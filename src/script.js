@@ -4,28 +4,38 @@ import registry from "./store/registry.js";
 import "./controllers/menu.js";
 import "./controllers/controller.js"
 
-// Canvas setup
-settings.init();
-// Dev commend to always enable max CPU thread.
-// Not to keep for live version as not everybody might like the idea of a web app asking for all of their cpu resources
-// settings.setWorkerCount(navigator.hardwareConcurrency);
-
-// Create Workers
-function createWorkers(count) {
-	workers = [];
-	for (let i = 0; i < count; i++) {
-		workers.push(new Worker('src/animation/mandelbrotWorker.js', {type: 'module'}));
-		workers[i].onmessage = (message)=> {
-			canvas.putImageData(message.data[0], message.data[1])
-			assignLine(i)
-		};
-	}
-}
-
 let renderCount = 0;
 let workers = [];
 let activeWorkers = new Set();
 let assignLine = () => {};
+
+// Canvas setup
+settings.init();
+
+// Dev command to always enable max CPU thread.
+// Not to keep for live version as not everybody might like the idea of a web app asking for all of their cpu resources
+settings.setWorkerCount(navigator.hardwareConcurrency);
+
+// 
+// Here we create and delete workers as needed by the application
+function createWorkers(count) {
+	workers = [];
+	// Add workers if the total isn't on par with the new count
+	for (let i = workers.length; i < count; i++) {
+		workers.push(new Worker('src/animation/mandelbrotWorker.js', {type: 'module'}));
+		// we create the listener immediately. the function assignLine will be defined in the draw function
+		workers[i].onmessage = (message)=> {
+			const {lineData, yPosition, renderId} = message.data;
+			canvas.putImageData(lineData, yPosition);
+			assignLine(i, renderId);
+		};
+	}
+	// if the new worker count is lower than the previous count, delete the remaining ones
+	for(let i = count; i < workers.length; i++) {
+		workers[i].terminate();
+	}
+}
+
 if(window.Worker) {
 	createWorkers(settings.getWorkerCount())
 }
@@ -35,16 +45,20 @@ function draw() {
 	let width = canvas.getWidth();
 	let height = canvas.getHeight();
 	let centerPoint = settings.getCenterLocation();
-	let yArray = [...Array(Math.ceil(height/15)).keys()];
+	let yArray = [...Array(Math.ceil(height/2)).keys()];
 	
 	renderCount++;
-	
-	assignLine = (worker) => {
+	assignLine = (worker, renderId) => {
+		if(renderCount !== renderId || !workers[worker]) {
+			// Stop rendering if the user called for a new frame or our worker no longer exists
+			activeWorkers.delete(worker);
+			return;
+		}
 		if(yArray.length > 0) {
-			let lineRendered = yArray.shift()*15;
+			let lineRendered = yArray.shift()*2;
 			workers[worker].postMessage(
 				[
-					canvas.createImageData(15),
+					canvas.createImageData(2),
 					lineRendered,
 					settings.getZoomFactor(),
 					width,
@@ -52,7 +66,8 @@ function draw() {
 					centerPoint,
 					settings.getBounds(),
 					settings.getMaxIterations(),
-					15
+					2,
+					renderId
 				]
 			);
 		} else {
@@ -68,7 +83,7 @@ function draw() {
 	
 	for(let i = 0; i < settings.getWorkerCount(); i++) {
 		activeWorkers.add(i);
-		assignLine(i);
+		assignLine(i, renderCount);
 	}
 }
 draw()
