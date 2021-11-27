@@ -6,7 +6,7 @@ import "./controllers/controller.js"
 
 // Canvas setup
 settings.init();
-// Dev commend to always enable max CPU thread.
+// Dev command to always enable max CPU thread.
 // Not to keep for live version as not everybody might like the idea of a web app asking for all of their cpu resources
 // settings.setWorkerCount(navigator.hardwareConcurrency);
 
