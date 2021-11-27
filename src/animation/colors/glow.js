@@ -3,6 +3,10 @@ var logHalfBase = Math.log(0.5)*logBase;
 
 let colorBase = [255, 0, 0];
 
+function setColorBase(color) {
+	colorBase = color;
+}
+
 function smoothenColor(smoothing) {
 	return colorBase.map(color => color * smoothing )
 }
@@ -27,5 +31,5 @@ function get(lineData, offset, n, max, Tr, Ti) {
 
 export default {
 	get,
-	colorBase
+	setColorBase
 }

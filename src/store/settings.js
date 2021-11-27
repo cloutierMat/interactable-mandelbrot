@@ -1,5 +1,5 @@
+import canvas from "../animation/canvas.js"
 import registry from "./registry.js";
-import canvas from "../animation/canvas.js";
 
 // Initiate all default values
 const BOUNDS = 10;
@@ -8,14 +8,15 @@ const COLOR_1 = [255, 0, 0, 255];
 const COLOR_2 = [0, 255, 0, 255];
 const COLOR_3 = [0, 0, 255, 255];
 const COLOR_4 = [255, 255, 0, 255];
-const COLOR_SCHEME = "cottonCandy"
-const MAX_ITERATIONS = 250;
+const COLOR_SCHEME = "glow"
+const MAX_ITERATIONS = 85;
 const SPEED = 1.1;
 const WORKER_COUNT = 1;
 const ZOOM_FACTOR = 120;
 
 // Define all value
 let animate,
+		automaticIterations,
 		bounds,
 		centerLocation,
 		color1,
@@ -34,6 +35,10 @@ let animate,
 function setAnimate(toggle=false) {
 	animate = toggle;
 	registry.executeEvent('updateAnimate', toggle)
+}
+
+function setAutomaticIterations(isAuto=true) {
+	automaticIterations = isAuto;
 }
 
 function setBounds(bound=null) {
@@ -101,9 +106,22 @@ function setWorkerCount(count=null) {
 }
 
 function setZoomFactor(zoom=null) {
-	zoomFactor = zoom ? Math.floor(zoom) : ZOOM_FACTOR;
-	registry.executeEvent('updateZoom', zoomFactor);
+	zoomFactor = zoom ? zoom : ZOOM_FACTOR;
+	registry.executeEvent('updateZoom', getZoomFactor());
+	if(automaticIterations) {
+		updateIterations();
+	}
 	registry.executeEvent('forceRedraw');
+}
+
+function updateIterations() {
+	setMaxIterations(Math.round(
+		220 / (
+			Math.sqrt(
+				0.0015  + (3000 / getZoomFactor())
+			)
+		)
+	));
 }
 
 function updateZoomFactor() {
@@ -127,6 +145,10 @@ function enableRedraw() {
 
 function getAnimate() {
 	return animate;
+}
+
+function getAutomaticIterations() {
+	return automaticIterations;
 }
 
 function getBounds() {
@@ -153,6 +175,10 @@ function getColor4() {
 	return color4;
 }
 
+function getColorScheme() {
+	return colorScheme;
+}
+
 function getMaxIterations() {
 	return maxIterations;
 }
@@ -170,13 +196,14 @@ function getWorkerCount() {
 }
 
 function getZoomFactor() {
-	return zoomFactor;
+	return Math.floor(zoomFactor);
 }
 
 // Initiate all values
 function setAllValuesToDefault() {
 	preventRedraw();
 	setAnimate();
+	setAutomaticIterations();
 	setBounds();
 	setCenterLocation();
 	setColor1();
@@ -198,6 +225,7 @@ function init() {
 export default {
 	init,
 	setAllValuesToDefault,
+	setAutomaticIterations,
 	setAnimate,
 	setBounds,
 	setCenterLocation,
@@ -211,6 +239,7 @@ export default {
 	setWorkerCount,
 	setZoomFactor,
 	getAnimate,
+	getAutomaticIterations,
 	getBounds,
 	getCenterLocation,
 	setCenterFromCanvasCoordinates,
@@ -218,6 +247,7 @@ export default {
 	getColor2,
 	getColor3,
 	getColor4,
+	getColorScheme,
 	getRedrawIsEnabled,
 	getMaxIterations,
 	getSpeed,

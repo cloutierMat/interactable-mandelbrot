@@ -8,7 +8,6 @@ body {
 
 .radial {
 	height: 100vh;
-	background-image: radial-gradient(#088, #000);
 }
 
 canvas {
@@ -82,6 +81,10 @@ input[type=color]:not([disabled]):hover,
 i:hover {
 	cursor: pointer;
 	background-color: #666;
+}
+
+input[type=color]:disabled {
+	opacity: 20%;
 }
 
 i {

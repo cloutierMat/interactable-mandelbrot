@@ -106,6 +106,11 @@ registry.addListener('updateColor4', color => {
 })
 
 registry.addListener('updateColorScheme', scheme => {
+	if(scheme === 'cottonCandy') {
+		enableAllColorBox();
+	} else if(scheme === 'glow') {
+		enableOneColorBox();
+	}
 	colorSchemeInput.value = scheme;
 })
 
@@ -128,11 +133,6 @@ registry.addListener('updateZoom', zoom => {
 colorSchemeInput.onchange = (e) => {
 	const scheme = e.target.value;
 	settings.setColorScheme(scheme);
-	if(scheme === 'cottonCandy') {
-		enableAllColorBox();
-	} else if(scheme === 'glow') {
-		enableOneColorBox();
-	}
 	colorSchemeInput.blur();
 }
 
@@ -182,7 +182,6 @@ submitButton.onclick = (e) => {
 	settings.setColor4(hexToRGB(color4Input.value));
 	settings.setMaxIterations(Number(maxIterationsInput.value));
 	settings.setSpeed(Number(speedInput.value));
-	console.log(workerCountInput.value);
 	settings.setWorkerCount(Number(workerCountInput.value));
 	settings.setZoomFactor(Number(zoomInput.value));
 	settings.enableRedraw();

@@ -51,6 +51,13 @@ We could just color the rest of the points white and still get an infinitely com
 
 By using the amount of iterations needed to reach the boundary to color the rest of the points, we can create many different colorful patterns. 
 
+## Multi threaded
+The javascript engine being inherently single threaded, and the recursive formula creating the Mandelbrot set leaving little room for optimization both contribute to a very slow and chuggy experience when computing the set in the browser.
+
+The use of Web Workers makes it possible to speed up the operation dramatically. It also allows the browser thread to remain responsive even when the workers are really busy. This significantly augments the user experience as they stay in control of their browser at all time and interacting with the UI remains smooth, even when increasing compute time over a few seconds.
+
+At the moment, all the parameters are sent to each workers and they send back all pixel data required to draw their section of the set. This technique require a small amount of extra memory and makes the source code a bit lenghtier. A diferent solution can be explored in the future where settings could be stored in each worker. This solution would reduce the amount of data being transfered at each worker's call. It is not known at this time if any improvement would come out of these modifications.
+
 ## To do
 
 ### Complete the readme
@@ -59,9 +66,7 @@ How to use
 Describe the different color patterns used
 
 ### Further optimization
-Use of Web Workers to make the rendering multi-threaded  
 Use of large numbers to allow zooming in a lot more than Javascript precision allows
 
 ### Visual
-Render line by line to allow the user to see the evolution of the calculation  
 Switch for the Julia set

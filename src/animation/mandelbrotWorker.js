@@ -1,6 +1,5 @@
 import color from "./colors/index.js";
 
-
 function iterateEquation(Cr, Ci, bounds, iterations) {
 	let Zr = 0
 	let Zi = 0
@@ -19,7 +18,7 @@ function iterateEquation(Cr, Ci, bounds, iterations) {
 }
 
 function mandelbrotLine(args) {
-	let [
+	let {
 		lineData,
 		lineRendered,
 		zoomFactor,
@@ -28,8 +27,15 @@ function mandelbrotLine(args) {
 		centerPoint,
 		bounds,
 		maxIterations,
-		linePerWorker
-	] = args.data;
+		linePerWorker,
+		renderId,
+		colorScheme,
+		color1,
+		color2,
+		color3,
+		color4,
+	} = args.data;
+	color.set(colorScheme, color1, color2, color3, color4, maxIterations);
 	let offset = 0;
 	let yPos;
 	let boundsSquared = bounds ** 2;
@@ -41,7 +47,7 @@ function mandelbrotLine(args) {
 			offset = color.get(lineData, offset, n, maxIterations, Tr, Ti);
 		}
 	}
-	self.postMessage([lineData, lineRendered]);
+	self.postMessage({lineData, yPosition: lineRendered, renderId});
 }
 
 self.onmessage = mandelbrotLine;
