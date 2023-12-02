@@ -1,20 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Mandelbrot</title>
-  <link rel="icon" href="favicon.ico" />
+	<link rel="icon" href="favicon.ico" />
 	<link rel="stylesheet" href="style.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
+		integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
+		crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
+
 <body>
 	<div class="flex-container">
 		<form id="settings-menu">
 			<h1>Mandelbrot</h1>
 			<h2>Take Control</h2>
-			<p id="help-button">Help and keyboard shortcut [h]</p>
+			<p id="help-button">Help and keyboard shortcut &lt;h&gt;</p>
 			<div class="flex-container inputs">
 				<p>Center
 				</p>
@@ -94,28 +98,31 @@
 		</div>
 	</div>
 	<div class="info-box">
-		<p>For a better performance, it is recommended to increases the amount of Web Workers. This will enable the javascript engine to utilize multiple cores on your cpu. Any amount above your actual amount of CPU threads will have no effect.</p>
-		<p>Reducing the amount of workers while the animation is running will stop the animation. You will need to restart it manually by pressing &lt;Space Bar&gt; or by clicking the animate button</p>
+		<p>For a better performance, it is recommended to increases the amount of Web Workers. This will enable the
+			javascript engine to utilize multiple cores on your cpu. Any amount above your actual amount of CPU threads
+			will have no effect.</p>
+		<p>You can see the full project on github at <a
+				href="https://github.com/cloutierMat/interactable-mandelbrot.git"
+				target="_blank">cloutierMat/interactable-mandelbrot.git</a></p>
 	</div>
 	<div hidden id="help-modal">
-		<div>
+		<div id="help-modal-body">
 			<h2>
-				I am not done with this section yet!
+				HELP!
 			</h2>
-			<h3>
-				Pres esc to get out of this useless help!
-			</h3>
-			<h4>
-				&ltspace&gt Start/Resume Animation
-			</h4>
-			<h4>
-				&ltMouse click&gt Define the new zooming point of the animation
-			</h4>
-			<h4>
-				&ltR&gt Resets all values to default
-			</h4>
+			<p>A Mandelbrot set animation create in javascript only, using the canvas. I also take advantage of
+				webworkers to improve computational performance.
+			<p>There are still someoptimization that could be done and I am currently looking at a way to remove the
+				screen tearing.</p>
+			<p>There are still someoptimization that could be done and I am currently looking at a way to remove the
+				screen tearing.</p>
+			</p>
+			<p>As one would expect, running a Mandelbrot animation in the browser is quite resource intensive. As such I
+				have implemented web workers to allow for a multi-threaded experience. It will gobble up all the
+				resources you allow 😉.</p>
 		</div>
 	</div>
 	<script type="module" src="./src/script.js"></script>
 </body>
+
 </html>
